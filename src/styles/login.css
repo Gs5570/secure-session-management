@@ -1,0 +1,35 @@
+form{
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
+    margin:auto;
+    width: 500px;
+
+    border: 1px solid black;
+
+    gap:10px;
+
+}
+
+.labels-container{
+    display: flex;
+    flex-direction: column;
+    width: inherit;
+    align-items: center;
+    gap: 10px;
+}
+
+.buttons-container{
+    display:flex;
+    justify-content: center;
+    width:inherit;
+    padding-bottom: 20px;
+    gap: 200px
+
+}
+
+.error{
+    color: red;
+    text-align: left !important; 
+}
