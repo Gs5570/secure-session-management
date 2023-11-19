@@ -1,48 +1,51 @@
 package com.SecureSession.Controller;
 
-import com.SecureSession.Model.Train;
-import com.SecureSession.Model.User;
-import com.SecureSession.Repo.TrainRepo;
+import com.SecureSession.Model.*;
 import com.SecureSession.Repo.UserRepo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import com.SecureSession.Services.AuthenticationService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
 @CrossOrigin("http://localhost:5173/")
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/")
 public class Controller {
     private final UserRepo userRepo;
-    private final TrainRepo trainRepo;
+    private final AuthenticationService service;
 
-    @Autowired
-    public Controller(UserRepo userRepo, TrainRepo trainRepo) {
-        this.userRepo = userRepo;
-        this.trainRepo = trainRepo;
-    }
 
-    @GetMapping("/trains")
-    public ResponseEntity<List<Train>> getTrains() {
-        List<Train> trains = trainRepo.findAll();
-        return ResponseEntity.ok(trains);
-    }
+
 
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody User newUser) {
-        // Check if the user already exists
-        if (userRepo.existsById(newUser.getUserId())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User already exists");
-        }
-
-        newUser.setIsApproved(false); // Set approval status to false
-        userRepo.save(newUser);
-        return ResponseEntity.ok("User registered successfully, pending admin approval");
+    public ResponseEntity<AuthenticationResponse> registerUser(@RequestBody RegisterRequest request) {
+        return ResponseEntity.ok(service.register(request));
+    }
+    @PostMapping("/register/admin")
+    public ResponseEntity<AuthenticationResponse> registerAdmin(@RequestBody RegisterRequest request) {
+        return ResponseEntity.ok(service.registerAdmin(request));
+    }
+    @GetMapping("/admin/users")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = userRepo.findAll();
+        return ResponseEntity.ok(users);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<AuthenticationResponse> authenticateUser(@RequestBody AuthenticationRequest request) {
+        return ResponseEntity.ok(service.authenticate(request));
+    }
+
+    @GetMapping("/user/welcome")
+    public ResponseEntity<String> userWelcome() {
+        return ResponseEntity.ok("Welcome to the User Dashboard!");
+    }
     
 
 }

@@ -24,11 +24,8 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer userId;
-    private String name;
+    private String username;
     private String password;
-    private Boolean isApproved;
-    private Integer tickets;
-    private Integer trainId;
     @Enumerated(EnumType.STRING)
     private Role role;
     @Override
@@ -43,7 +40,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return name;
+        return username;
     }
 
     @Override
