@@ -10,17 +10,13 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
-@CrossOrigin("http://localhost:5173/")
+@CrossOrigin("*")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/")
 public class Controller {
     private final UserRepo userRepo;
     private final AuthenticationService service;
-
-
-
-
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> registerUser(@RequestBody RegisterRequest request) {
