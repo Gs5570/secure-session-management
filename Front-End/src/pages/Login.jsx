@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useState,} from "react";
+import { useState } from "react";
 
 import LoginSuccess from "./LoginSuccess";
 import axios from "../api/Axios";
@@ -24,7 +24,7 @@ export default function Login() {
   console.log(successLogin);
 
   //end point for the login int back-end ( the path )
-  const loginURL = "/";
+  const loginURL = "/login";
 
   /**
    * navigate to registration page
@@ -78,34 +78,34 @@ export default function Login() {
     // setSuccessLogin(true);
 
     //connect to back-end & submit form data to back-end
-    try{
-
-        //expected response from back end
-        const response = await axios.post(
-            loginURL,
-            JSON.stringify({username: loggedInUser.username, password: loggedInUser.password}),
-            {
-                Headers: { 'Content-Type': 'application/json'},
-                withCredentials: true
-            }
-        )
-
-        console.log(response);
-
-        // response from the server saved  in the data property
-        console.log(response.data)
-        // full json object response
-        console.log(JSON.stringify(response));
-
-        // clear input from registration fields.
-        reset();
-
-    }catch(err){
-
-        if(!err?.response){
-            console.log('No server response');
+    try {
+      //expected response from back end
+      const response = await axios.post(
+        loginURL,
+        JSON.stringify({
+          username: loggedInUser.username,
+          password: loggedInUser.password,
+        }),
+        {
+          Headers: { "Content-Type": "application/json" },
+          // withCredentials: true,
         }
-        console.log(err);
+      );
+
+      console.log(response);
+
+      // response from the server saved  in the data property
+      console.log(response.data);
+      // full json object response
+      console.log(JSON.stringify(response));
+
+      // clear input from registration fields.
+      reset();
+    } catch (err) {
+      if (!err?.response) {
+        console.log("No server response");
+      }
+      console.log(err);
     }
   };
 
@@ -146,9 +146,12 @@ export default function Login() {
           </form>
           <DevTool control={control} />
 
-          <p> To use the system as guess click <Link to ="/guessPage">here</Link></p>
-        </div>)
-      }
+          <p>
+            {" "}
+            To use the system as guess click <Link to="/guessPage">here</Link>
+          </p>
+        </div>
+      )}
     </>
   );
 }
