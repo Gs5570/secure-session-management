@@ -43,7 +43,6 @@ public class Controller {
         return ResponseEntity.ok("User registered successfully, pending admin approval");
     }
 
-    @GetMapping("/login")
-    public ResponseEntity<?> authenticateUser(@RequestParam)
+    
 
 }
