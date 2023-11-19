@@ -12,6 +12,8 @@ import "../styles/login.css"
 export default function Login(){
 
     const [loggedInUser, setLoggedInUser] = useState({username: null, password: null});
+    const [success, setSuccess] = useState(false);
+
 
     //end point for the login int back-end ( the path )
     const loginURL = '/'
