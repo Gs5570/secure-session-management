@@ -1,0 +1,23 @@
+.navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    background-color: aqua;
+
+    gap: 20px 
+}
+
+.navbar li{
+    font-size:x-large;
+    list-style-type: none;
+    background-color: aqua;
+
+    padding: 6px;
+    border: solid ;
+}
+
+ .navbar li:hover {
+    background-color: yellow;
+    cursor: pointer;
+  }

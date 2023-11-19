@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Route,Routes } from 'react-router-dom'
 import { Outlet } from 'react-router-dom'
 import Layout from './components/Layout'
+import RequireAuth from './components/RequireAuth'
 
 //pages
 import Login from './pages/Login'
@@ -21,19 +22,22 @@ function App() {
   return (
     <Routes>
       <Route path="/" element = {<Layout />}>
-      {/**public routes */}
+        {/**public routes */}
+      <Route index element={<Login />} />
       <Route path="login" element = { <Login /> }/>
         <Route path="register" element = { <Register /> }/>
         <Route path="adminLogin" element = { <Admin /> }/>
         <Route path="unauthorized" element = { <Unauthorized /> }/>
         <Route path="guessPage" element = { <GuessPage /> }/>
-      
-      {/* private route */}
+
+        {/* private route */}
+        <Route element = {<RequireAuth />}> {/** prottect the route is the user are logged in */}
+          <Route path="bookingTickets" element = { <BookingTickets /> }/>
+          <Route path="adminPage" element = { <AdminPage /> }/>
+        </Route>
         
-        <Route path="bookingTickets" element = { <BookingTickets /> }/>
-        <Route path="adminPage" element = { <AdminPage /> }/>
 
-
+        {/* cath all */}
         <Route path="*" element = { <Missing /> }/>
 
       </Route>

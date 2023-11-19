@@ -3,16 +3,18 @@ import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useState, useContext } from "react";
-import AuthContext from "../context/AuthPorvider";
+import { useState,} from "react";
+
 import LoginSuccess from "./LoginSuccess";
 import axios from "../api/Axios";
+
+import useAuth from "../hooks/setAuth";
 // import { object, string, number, date, InferType } from 'yup';
 
 import "../styles/login.css";
 
 export default function Login() {
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth } = useAuth;
 
   const [loggedInUser, setLoggedInUser] = useState({
     username: null,
