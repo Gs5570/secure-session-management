@@ -4,5 +4,5 @@
 
 import axios from "axios";
 export default axios.create({
-    baseURL: '' // address of backend API
+    baseURL: 'http://localhost:8080/' // address of backend API
 })
