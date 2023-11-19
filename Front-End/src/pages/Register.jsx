@@ -82,6 +82,47 @@ export default function Register(){
         // reset();
         redirectToLogin();
 
+         //connect to back-end & submit form data to back-end
+        try{
+
+            //expected response from back end
+            const response = await axios.post(
+                registerURL, 
+                JSON.stringify(
+                    {
+                        username: registeredUser.username, 
+                        password: registeredUser.password,
+                        firstName: registeredUser.firstName,
+                        lastName: registeredUser.lastName,
+                        email: registeredUser.email,
+                        confPassword: registeredUser.confPassword  
+                
+                    }),
+                {
+                    Headers: { 'Content-Type': 'application/json'},
+                    withCredentials: true
+                }
+            )
+            
+            // response from the server saved  in the data property
+            console.log(response.data)
+            // full json object response
+            console.log(JSON.stringify(response));
+
+            const accessToken = response?.data?.accessToken;
+            const roles = response?.data?.roles;
+            
+            // clear input from registration fields.
+            reset();
+
+        }catch(err){
+
+            if(!err?.response){
+                console.log('No server response');
+            }
+            console.log(err);
+        }
+
     }
 
     console.log(registeredUser);
