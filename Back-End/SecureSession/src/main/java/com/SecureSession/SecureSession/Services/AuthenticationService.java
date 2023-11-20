@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,9 +33,9 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        log.debug("Authenticating user: {}", request.getUsername());
-        log.debug("UsernamePasswordAuthenticationToken:", new UsernamePasswordAuthenticationToken(request.getUsername(),request.getPassword()));
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(),request.getPassword()));
+        log.debug("Beginning authentication for user: {}", request.getUsername());
+        Authentication authentication=authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(),request.getPassword()));
+        log.debug("Authentication success for user: {}", authentication.getName());
         var user=userRepo.findByUsername(request.getUsername()).orElseThrow();
         var jwtToken=jwtService.generateToken(user);
         return AuthenticationResponse.builder().token(jwtToken).build();

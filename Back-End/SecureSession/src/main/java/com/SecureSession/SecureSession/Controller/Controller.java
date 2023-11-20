@@ -41,7 +41,7 @@ public class Controller {
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> authenticateUser(@RequestBody AuthenticationRequest request) {
-        log.debug("Login request received: {}", request);
+        log.debug("Login request received - Username: {}, Password: {}", request.getUsername(), request.getPassword());
         return ResponseEntity.ok(service.authenticate(request));
     }
 
