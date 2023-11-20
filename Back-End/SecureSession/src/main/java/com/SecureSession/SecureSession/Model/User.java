@@ -1,4 +1,4 @@
-package com.SecureSession.Model;
+package com.SecureSession.SecureSession.Model;
 
 
 
@@ -19,11 +19,11 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EntityScan
-@Table(name = "user")
+@Entity
+@Table(name = "users")
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
     private String username;
     private String password;

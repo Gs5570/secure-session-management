@@ -1,6 +1,5 @@
-package com.SecureSession.Services;
+package com.SecureSession.SecureSession.Services;
 
-import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,23 +14,24 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private final JwtAuthenticationFilter jwtfAuthFilter;
+    private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
-                .authorizeRequests(auth -> auth
-                        .requestMatchers("/admin/users").hasAuthority("ROLE_ADMIN")
-                        .requestMatchers("/user/welcome").authenticated()
-                        .anyRequest().authenticated()
-                )
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtfAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .authorizeRequests(auth -> {
+                    auth.requestMatchers("/register").permitAll();
+                    auth.requestMatchers("/register/admin").permitAll();
+                    auth.requestMatchers("/login").permitAll();
+                    auth.requestMatchers("/admin/users").hasAuthority("ADMIN");
+                    auth.requestMatchers("/user/welcome").authenticated();
+                    auth.anyRequest().authenticated();
+                });
 
         return http.build();
     }

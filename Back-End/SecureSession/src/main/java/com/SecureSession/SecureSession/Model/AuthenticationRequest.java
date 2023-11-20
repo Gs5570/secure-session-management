@@ -1,4 +1,4 @@
-package com.SecureSession.Model;
+package com.SecureSession.SecureSession.Model;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
