@@ -66,6 +66,8 @@ export default function Login() {
    * Form submission
    * will automatically receive access to the form data through the parameter "loginData"*/
   const onSubmit = async (loginData) => {
+
+    
     await setLoggedInUser((prevState) => {
       return {
         ...prevState,
@@ -75,7 +77,10 @@ export default function Login() {
     });
     console.log(loggedInUser);
 
-    setSuccessLogin(true);
+    if((loggedInUser.password && loggedInUser.username) !== null){
+      setSuccessLogin(true);
+  }
+
 
     //connect to back-end & submit form data to back-end
     try{
@@ -106,6 +111,7 @@ export default function Login() {
 
       // clear input from registration fields.
       reset();
+
     } catch (err) {
       if (!err?.response) {
         console.log("No server response");
@@ -123,7 +129,7 @@ export default function Login() {
           <form>
             <h1>Welcome</h1>
             <span>
-              <Link to="/adminPage">Admin</Link>
+              <Link to="/adminLogin">Admin</Link>
             </span>
             <section className="labels-container">
               <label>

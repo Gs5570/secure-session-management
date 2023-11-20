@@ -93,10 +93,10 @@ export default function Register(){
                     {
                         username: registeredUser.username, 
                         password: registeredUser.password,
-                        firstName: registeredUser.firstName,
-                        lastName: registeredUser.lastName,
-                        email: registeredUser.email,
-                        confPassword: registeredUser.confPassword  
+                        // firstName: registeredUser.firstName,
+                        // lastName: registeredUser.lastName,
+                        // email: registeredUser.email,
+                        // confPassword: registeredUser.confPassword  
                 
                     }),
                 {
