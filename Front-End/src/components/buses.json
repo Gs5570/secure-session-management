@@ -1,6 +1,22 @@
-[{
-    "busName" : "MegaBus",
-    "destination" : "New York",
-    "date" : "December 5th",
-    "status" : "available"
-}]
+{
+    "buses":[
+        {
+          "busName": "MegaBus",
+          "destination": "New York",
+          "date": "December 5th",
+          "status": "available"
+        },
+        {
+          "busName": "Greyhound",
+          "destination": "Philadelphia ",
+          "date": "January 5th",
+          "status": "available"
+        },
+        {
+          "busName": "BoltBus",
+          "destination": "Boston",
+          "date": "December 5th",
+          "status": "unavailable"
+        }
+      ]
+}

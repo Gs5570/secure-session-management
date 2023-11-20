@@ -75,22 +75,27 @@ export default function Login() {
     });
     console.log(loggedInUser);
 
-    // setSuccessLogin(true);
+    setSuccessLogin(true);
 
     //connect to back-end & submit form data to back-end
-    try {
-      //expected response from back end
-      const response = await axios.post(
-        loginURL,
-        JSON.stringify({
-          username: loggedInUser.username,
-          password: loggedInUser.password,
-        }),
-        {
-          Headers: { "Content-Type": "application/json" },
-          // withCredentials: true,
-        }
-      );
+    try{
+
+        //expected response from back end
+        const response = await axios.post(
+            loginURL,
+            JSON.stringify({username: loggedInUser.username, password: loggedInUser.password}),
+            {
+                Headers: { 'Content-Type': 'application/json'},
+                // withCredentials: true
+            }
+        )
+
+        console.log(response);
+
+        // response from the server saved  in the data property
+        console.log(response.data)
+        // full json object response
+        console.log(JSON.stringify(response));
 
       console.log(response);
 

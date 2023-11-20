@@ -1,0 +1,25 @@
+.bus-container{
+    border: solid 1px;
+    width: 60%;
+    padding: 15px;
+    margin: 30px;
+}
+
+.icon{
+    font-size: 200px;
+}
+
+.buss-elt-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.bus-info-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.welcome{
+    text-align: center;
+}

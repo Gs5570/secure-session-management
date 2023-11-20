@@ -31,10 +31,14 @@ function App() {
         <Route path="guessPage" element = { <GuessPage /> }/>
 
         {/* private route */}
-        <Route element = {<RequireAuth />}> {/** prottect the route is the user are logged in */}
+        {/** prottect the route is the user are logged in */}
+        {/* <Route element = {<RequireAuth />}> 
           <Route path="bookingTickets" element = { <BookingTickets /> }/>
           <Route path="adminPage" element = { <AdminPage /> }/>
-        </Route>
+        </Route> */}
+
+        <Route path="bookingTickets" element = { <BookingTickets /> }/>
+        <Route path="adminPage" element = { <AdminPage /> }/>
         
 
         {/* cath all */}
