@@ -1,11 +1,11 @@
-package com.SecureSession.Repo;
+package com.SecureSession.SecureSession.Repo;
 
-import com.SecureSession.Model.User;
+import com.SecureSession.SecureSession.Model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
 
 public interface UserRepo extends JpaRepository<User,Integer> {
-    Optional<User> findByName(String name);
+    Optional<User> findByUsername(String username);
 }

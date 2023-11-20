@@ -7,19 +7,17 @@ import axios from "../api/Axios";
 import { useState } from "react";
 import { DevTool } from "@hookform/devtools";
 
-export default function Register(){
-
-    const [registerSuccess, setRegisterSuccess] = useState(false)
-    const [errMsg, setErrMsg] = useState("");
-    const[registeredUser, setRegisteredUser] = useState(
-        {
-            username: null,
-            firstName: null,
-            lastName: null,
-            email: null,
-            password: null,
-            confPassword: null
-        })
+export default function Register() {
+  const [registerSuccess, setRegisterSuccess] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
+  const [registeredUser, setRegisteredUser] = useState({
+    username: null,
+    firstName: null,
+    lastName: null,
+    email: null,
+    password: null,
+    confPassword: null,
+  });
 
   //end point for the login int back-end ( the path )
   const registerURL = "/register";
@@ -83,52 +81,42 @@ export default function Register(){
     // reset();
     redirectToLogin();
 
-         //connect to back-end & submit form data to back-end
-        try{
-
-            //expected response from back end
-            const response = await axios.post(
-                registerURL, 
-                JSON.stringify(
-                    {
-                        username: registeredUser.username, 
-                        password: registeredUser.password,
-                        // firstName: registeredUser.firstName,
-                        // lastName: registeredUser.lastName,
-                        // email: registeredUser.email,
-                        // confPassword: registeredUser.confPassword  
-                
-                    }),
-                {
-                    Headers: { 'Content-Type': 'application/json'},
-                    withCredentials: true
-                }
-            )
-            
-            // response from the server saved  in the data property
-            console.log(response.data)
-            // full json object response
-            console.log(JSON.stringify(response));
-
-            const accessToken = response?.data?.accessToken;
-            const roles = response?.data?.roles;
-            
-            // clear input from registration fields.
-            reset();
-
-        }catch(err){
-
-            if(!err?.response){
-                console.log('No server response');
-            }else if (err.response?.status === 409) {
-                setErrMsg("Username Taken");
-              } else {
-                setErrMsg("Registration Failed");
-              }
-            console.log(err);
+    //connect to back-end & submit form data to back-end
+    try {
+      //expected response from back end
+      const response = await axios.post(
+        registerURL,
+        JSON.stringify({
+          username: registeredUser.username,
+          password: registeredUser.password,
+        }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
         }
+      );
 
+      // response from the server saved  in the data property
+      console.log(response.data);
+      // full json object response
+      console.log(JSON.stringify(response));
+
+      const accessToken = response?.data?.accessToken;
+      const roles = response?.data?.roles;
+
+      // clear input from registration fields.
+      reset();
+    } catch (err) {
+      if (!err?.response) {
+        console.log("No server response");
+      } else if (err.response?.status === 409) {
+        setErrMsg("Username Taken");
+      } else {
+        setErrMsg("Registration Failed");
+      }
+      console.log(err);
     }
+  };
 
   console.log(registeredUser);
 

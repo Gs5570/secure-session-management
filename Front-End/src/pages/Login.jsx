@@ -66,8 +66,6 @@ export default function Login() {
    * Form submission
    * will automatically receive access to the form data through the parameter "loginData"*/
   const onSubmit = async (loginData) => {
-
-    
     await setLoggedInUser((prevState) => {
       return {
         ...prevState,
@@ -77,30 +75,31 @@ export default function Login() {
     });
     console.log(loggedInUser);
 
-    if((loggedInUser.password && loggedInUser.username) !== null){
+    if ((loggedInUser.password && loggedInUser.username) !== null) {
       setSuccessLogin(true);
-  }
-
+    }
 
     //connect to back-end & submit form data to back-end
-    try{
+    try {
+      //expected response from back end
+      const response = await axios.post(
+        loginURL,
+        JSON.stringify({
+          username: loggedInUser.username,
+          password: loggedInUser.password,
+        }),
+        {
+          Headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
 
-        //expected response from back end
-        const response = await axios.post(
-            loginURL,
-            JSON.stringify({username: loggedInUser.username, password: loggedInUser.password}),
-            {
-                Headers: { 'Content-Type': 'application/json'},
-                // withCredentials: true
-            }
-        )
+      console.log(response);
 
-        console.log(response);
-
-        // response from the server saved  in the data property
-        console.log(response.data)
-        // full json object response
-        console.log(JSON.stringify(response));
+      // response from the server saved  in the data property
+      console.log(response.data);
+      // full json object response
+      console.log(JSON.stringify(response));
 
       console.log(response);
 
@@ -111,7 +110,6 @@ export default function Login() {
 
       // clear input from registration fields.
       reset();
-
     } catch (err) {
       if (!err?.response) {
         console.log("No server response");
