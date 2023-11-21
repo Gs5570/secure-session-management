@@ -1,4 +1,4 @@
-package com.SecureSession.SecureSession.Model;
+package com.SecureSession.Model;
 
 public enum Role {
     USER,
